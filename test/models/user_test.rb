@@ -27,13 +27,8 @@ class UserTest < ActiveSupport::TestCase
     original_user.save
     duplicate_user = @user.dup
     duplicate_user.username = original_user.username.upcase
-    # duplicate_user.save
 
     assert_not duplicate_user.valid?
-
-    # duplicate_user = User.new(username: "Foobar")
-    # duplicate_user.save
-    # assert_not duplicate_user.valid?
   end
 
 end
