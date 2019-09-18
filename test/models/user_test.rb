@@ -10,7 +10,7 @@ class UserTest < ActiveSupport::TestCase
 
 
   def setup
-    @user = User.new(username: "Foobar")
+    @user = User.new(username: "FOOBAR")
   end
 
   test "should be valid" do
@@ -25,8 +25,8 @@ class UserTest < ActiveSupport::TestCase
   test "username should be unique" do
     original_user = @user.dup
     original_user.save
-    duplicate_user = @user.dup
-    duplicate_user.username = original_user.username.upcase
+    duplicate_user = User.new(username: "foobar")
+
 
     assert_not duplicate_user.valid?
   end
