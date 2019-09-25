@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_param)
+    user = User.new(user_params)
 
     if user.save
       render json: user
@@ -31,24 +31,24 @@ class UsersController < ApplicationController
   def update
     user = User.find(params[:id])
 
-    if user.update_attributes(user_param)
-      redirect_to :action => 'show', :id => user
+    if user.update(user_params)
+      render json: user
     else
-      user = User.all
-      render :action => 'edit'
+    render json: user.errors.full_messages, status: :unprocessable_entity
     end
 
   end
 
   def destroy
     User.find(params[:id]).destroy
-    redirect_to :action => 'index'
+    render json: @user
+    # redirect_to :action => 'index'
   end
 
 
   private
 
-  def user_param
+  def user_params
     params.require(:user).permit(:name, :email)
   end
 
