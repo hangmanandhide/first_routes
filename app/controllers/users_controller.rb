@@ -10,8 +10,11 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
+    text_string = user.username.gsub(/\W/,'')
 
-    if user.save
+    if user.username != text_string
+      raise "Illegal character in username! Please try a different username. text_string is #{text_string}. user.username is #{user.username}"
+    elsif user.save
       render json: user
     else
       render json: user.errors.full_messages, status: :unprocessable_entity
