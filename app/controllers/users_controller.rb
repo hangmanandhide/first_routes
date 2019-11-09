@@ -13,7 +13,8 @@ class UsersController < ApplicationController
     text_string = user.username.gsub(/\W/,'')
 
     if user.username != text_string
-      raise "Illegal character in username! Please try a different username. text_string is #{text_string}. user.username is #{user.username}"
+      render html: "Illegal character in username! Please try a different username. text_string is #{text_string}. user.username is #{user.username}"
+      # render json: user.errors.full_messages, status: :unprocessable_entity
     elsif user.save
       render json: user
     else
